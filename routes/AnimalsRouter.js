@@ -2,8 +2,7 @@ const express = require('express');
 const Model = require('../models/AnimalModel');
 const animalsRouter = express.Router();
 
-//Post Method
-animalsRouter.post('/post', async (req, res) => {
+animalsRouter.post('', async (req, res) => {
     const data = new Model({
         ...req.body
     })
@@ -17,8 +16,7 @@ animalsRouter.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
-animalsRouter.get('/getAll', async (req, res) => {
+animalsRouter.get('', async (req, res) => {
     try {
         const data = await Model.find();
         res.json(data)
@@ -28,8 +26,7 @@ animalsRouter.get('/getAll', async (req, res) => {
     }
 })
 
-//Get by ID Method
-animalsRouter.get('/getOne/:id', async (req, res) => {
+animalsRouter.get('/:id', async (req, res) => {
     try {
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -39,8 +36,7 @@ animalsRouter.get('/getOne/:id', async (req, res) => {
     }
 })
 
-//Update by ID Method
-animalsRouter.patch('/update/:id', async (req, res) => {
+animalsRouter.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -57,8 +53,7 @@ animalsRouter.patch('/update/:id', async (req, res) => {
     }
 })
 
-//Delete by ID Method
-animalsRouter.delete('/delete/:id', async (req, res) => {
+animalsRouter.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)

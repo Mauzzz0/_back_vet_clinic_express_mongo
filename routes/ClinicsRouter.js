@@ -2,8 +2,7 @@ const express = require('express');
 const Model = require('../models/ClinicModel');
 const clinicsRouter = express.Router();
 
-//Post Method
-clinicsRouter.post('/post', async (req, res) => {
+clinicsRouter.post('', async (req, res) => {
     const data = new Model({
         ...req.body
     })
@@ -17,8 +16,7 @@ clinicsRouter.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
-clinicsRouter.get('/getAll', async (req, res) => {
+clinicsRouter.get('', async (req, res) => {
     try {
         const data = await Model.find();
         res.json(data)
@@ -28,8 +26,7 @@ clinicsRouter.get('/getAll', async (req, res) => {
     }
 })
 
-//Get by ID Method
-clinicsRouter.get('/getOne/:id', async (req, res) => {
+clinicsRouter.get('/:id', async (req, res) => {
     try {
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -39,8 +36,7 @@ clinicsRouter.get('/getOne/:id', async (req, res) => {
     }
 })
 
-//Update by ID Method
-clinicsRouter.patch('/update/:id', async (req, res) => {
+clinicsRouter.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -57,8 +53,7 @@ clinicsRouter.patch('/update/:id', async (req, res) => {
     }
 })
 
-//Delete by ID Method
-clinicsRouter.delete('/delete/:id', async (req, res) => {
+clinicsRouter.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)

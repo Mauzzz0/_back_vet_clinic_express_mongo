@@ -1,9 +1,8 @@
 const express = require('express');
 const Model = require('../models/ServiceModel');
-const servicesRouter = express.Router();
+const serviceRouter = express.Router();
 
-//Post Method
-servicesRouter.post('/post', async (req, res) => {
+serviceRouter.post('', async (req, res) => {
     const data = new Model({
         ...req.body
     })
@@ -17,8 +16,7 @@ servicesRouter.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
-servicesRouter.get('/getAll', async (req, res) => {
+serviceRouter.get('', async (req, res) => {
     try {
         const data = await Model.find();
         res.json(data)
@@ -28,8 +26,7 @@ servicesRouter.get('/getAll', async (req, res) => {
     }
 })
 
-//Get by ID Method
-servicesRouter.get('/getOne/:id', async (req, res) => {
+serviceRouter.get('/:id', async (req, res) => {
     try {
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -39,8 +36,7 @@ servicesRouter.get('/getOne/:id', async (req, res) => {
     }
 })
 
-//Update by ID Method
-servicesRouter.patch('/update/:id', async (req, res) => {
+serviceRouter.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -57,8 +53,7 @@ servicesRouter.patch('/update/:id', async (req, res) => {
     }
 })
 
-//Delete by ID Method
-servicesRouter.delete('/delete/:id', async (req, res) => {
+serviceRouter.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)
@@ -69,4 +64,4 @@ servicesRouter.delete('/delete/:id', async (req, res) => {
     }
 })
 
-module.exports = servicesRouter;
+module.exports = serviceRouter;

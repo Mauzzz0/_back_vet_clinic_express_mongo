@@ -2,8 +2,7 @@ const express = require('express');
 const Model = require('../models/AppointmentModel');
 const appointmentsRouter = express.Router();
 
-//Post Method
-appointmentsRouter.post('/post', async (req, res) => {
+appointmentsRouter.post('', async (req, res) => {
     const data = new Model({
         ...req.body
     })
@@ -17,8 +16,7 @@ appointmentsRouter.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
-appointmentsRouter.get('/getAll', async (req, res) => {
+appointmentsRouter.get('', async (req, res) => {
     try {
         const data = await Model.find();
         res.json(data)
@@ -28,8 +26,7 @@ appointmentsRouter.get('/getAll', async (req, res) => {
     }
 })
 
-//Get by ID Method
-appointmentsRouter.get('/getOne/:id', async (req, res) => {
+appointmentsRouter.get('/:id', async (req, res) => {
     try {
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -39,8 +36,7 @@ appointmentsRouter.get('/getOne/:id', async (req, res) => {
     }
 })
 
-//Update by ID Method
-appointmentsRouter.patch('/update/:id', async (req, res) => {
+appointmentsRouter.patch('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -57,8 +53,7 @@ appointmentsRouter.patch('/update/:id', async (req, res) => {
     }
 })
 
-//Delete by ID Method
-appointmentsRouter.delete('/delete/:id', async (req, res) => {
+appointmentsRouter.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)
