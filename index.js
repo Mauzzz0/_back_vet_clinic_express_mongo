@@ -2,9 +2,31 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const mongoString = process.env.DATABASE_URL;
 
-mongoose.connect(mongoString);
+const changeConnect = async (log, pwd) => {
+    if (log == undefined && pwd == undefined){
+        log = 'username'
+        pwd = 'password'
+    }
+
+    await mongoose.disconnect();
+    try {
+        await mongoose.connect(`mongodb://${log}:${pwd}@localhost:27017/`)
+    }
+    catch(er) {
+        log = 'username'
+        pwd = 'password'
+        await mongoose.disconnect();
+        await mongoose.connect(`mongodb://${log}:${pwd}@localhost:27017/`)
+        return false;
+    }
+
+    return true;
+}
+
+
+changeConnect();
+
 const database = mongoose.connection;
 
 database.on('error', (error) => {
@@ -34,6 +56,11 @@ app.use('/api/appointments', appointmentsRouter)
 app.use('/api/clinics', clinicsRouter)
 app.use('/api/services', servicesRouter)
 app.use('/api/users', usersRouter)
+
+app.post('/login', async (req, res, next) => {
+    const { login, password } = req.body;
+    res.send({connected: await changeConnect(login, password)});
+})
 
 
 app.listen(3000, () => {
